@@ -1,6 +1,6 @@
 # Install Scripts Ubuntu
 
-## Install phpmyadmin
+## Instalar php8.4 e phpmyadmin
 
 Copiar o código:
 ```sh
