@@ -1,18 +1,3 @@
-#    Copyright (C) 2021  Julian G.
-#
-#    This program is free software; you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License 2 as published by
-#    the Free Software Foundation.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License 2 for more details.
-#
-#    You should have received a copy of the GNU General Public License 2 along
-#    with this program; if not, write to the Free Software Foundation, Inc.,
-#    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-
 #!/bin/bash
 green='\033[0;32m'
 red='\033[0;31m'
@@ -58,9 +43,9 @@ function input() {
 
   if [[ "${non_interactive}" == "false" ]]; then
 
-    status "Create a special account for PHPMyAdmin access (this is going to disable the PHPMyAdmin access with root)?" "/"
+    status "Criar uma conta especial para acesso ao PHPMyAdmin (isso desabilitará o acesso do PHPMyAdmin com root)?" "/"
 
-    export OPTIONS=("No, keep it simple" "Yes, I want security")
+    export OPTIONS=("No, mantenha as coisas simples" "Yes, Eu quero segurança")
       bashSelect
       case $? in
         0 )
@@ -84,7 +69,7 @@ function input() {
       #readUname
       while [ -z $dynuser ]; do
         dynuser=$( echo $dynuser | sed 's/ //g' | sed 's/[^a-z]//g' )
-        read -ep $'\e[37mPlease enter a name for the MySQL user you want to use later to log in to PHPMyAdmin:\e[0m ' dynuser;
+        read -ep $'\e[37mPor favor, insira um nome para o usuário MySQL que você deseja usar posteriormente para fazer login no PHPMyAdmin:\e[0m ' dynuser;
         if [[ "${dynuser,,%%*( )}" == "root" ]]; then
           unset dynuser
         fi
@@ -97,7 +82,7 @@ function input() {
 
       status "Set a password" "/"
 
-        export OPTIONS=("Let the script generate a secure passwort" "No, I will do it myself")
+        export OPTIONS=("Deixe o script gerar uma senha segura" "Não, eu mesmo farei isso")
         bashSelect
         case $? in
           0 )
@@ -125,8 +110,8 @@ function serverCheck() {
   if [[ $? != 127 ]]; then
 
     if [[ "${non_interactive}" == "false" ]]; then
-      status "It looks like mariadb is already installed\nShould it be removed or can we just reset the password?" "/"
-      export OPTIONS=("Reset MySQL/MariaDB password and proceed to install PHPMyAdmin" "Remove the MariaDB/MySQL server and every database" "Exit the script ")
+      status "Parece que o mariadb já está instalado\nDeve ser removido ou podemos apenas redefinir a senha?" "/"
+      export OPTIONS=("Redefina a senha do MySQL/MariaDB e prossiga com a instalação do PHPMyAdmin" "Remova o servidor MariaDB/MySQL e todos os bancos de dados" "Saia do script ")
 
       bashSelect
       case $? in
@@ -142,7 +127,7 @@ function serverCheck() {
           ;;
       esac
     elif [[ "${reset_password}" == "false" && "${remove_db}" == "false" ]]; then
-      echo -e "${red}Error:${reset} MySQL database is already installed. Use --remove_db to reinstall or --reset_password to reset the password."
+      echo -e "${red}Error:${reset} O banco de dados MySQL já está instalado. Use --remove_db para reinstalar ou --reset_password para redefinir a senha."
       exit 1
     fi
 
@@ -181,11 +166,10 @@ function serverCheck() {
     fi
 
   fi
-
-#I added this to collect some usage statistics.
-#Don't worry, no code will be downloaded or executed here (this is not possible with such a command).
-#Don't worry, we don't store any user-related data, IP addresses are anonymised, etc..
-#This command has no influence on the rest of the script, or on you, I only added it out of personal interest to know what kind of people use this script :)
+#Eu adicionei isso para coletar algumas estatísticas de uso.
+#Não se preocupe, nenhum código será baixado ou executado aqui (isso não é possível com esse comando).
+#Não se preocupe, não armazenamos nenhum dado relacionado ao usuário, os endereços IP são anonimizados, etc.
+#Esse comando não tem influência no resto do script, nem em você, só adicionei ele por interesse pessoal para saber que tipo de pessoas usam esse script :)
 curl https://script.gransee.me/PHPMyAdminInstaller &
 }
 
