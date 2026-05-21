@@ -497,9 +497,9 @@ fi
 while [[ "$#" -gt 0 ]]; do
     case $1 in
     -h|--help)
-      echo "This is just a simple script to install PHPMyAdmin, Apache2 and MariaDB on Debian based systems."
+      echo "Este é apenas um script simples para instalar PHPMyAdmin, Apache2 e MariaDB em sistemas baseados em Debian."
       echo
-      echo "Syntax: bash <(curl -s https://raw.githubusercontent.com/JulianGransee/PHPMyAdminInstaller/main/install.sh) [options]"
+      echo "Syntax: bash <(curl -s https://raw.githubusercontent.com/onixsat/Install-ubuntu/refs/heads/main/phpmyadmin.sh) [options]"
       echo
       echo "Options:"
       echo "  -h, --help                      Display this help message."
